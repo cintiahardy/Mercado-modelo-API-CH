@@ -1,0 +1,25 @@
+<section class="hero">
+    <h2>🥬 Bienvenidos a Mercado Modelo</h2>
+    <p>Las mejores frutas y verduras frescas al mejor precio</p>
+</section>
+
+<section class="products-container">
+    {{#each products}}
+    <div class="product-card">
+        <div class="product-img">
+            <img src="https://via.placeholder.com/250x180" alt="producto">
+        </div>
+
+        <div class="product-info">
+            <h3>{{this.title}}</h3>
+            <p>{{this.description}}</p>
+            <p class="price">$ {{this.price}}</p>
+            <p class="stock">Stock: {{this.stock}}</p>
+
+            <a class="btn-detail" href="/products/{{this._id}}">
+                Ver Detalle
+            </a>
+        </div>
+    </div>
+    {{/each}}
+</section>
