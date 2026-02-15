@@ -5,13 +5,11 @@ const productSchema = new mongoose.Schema({
   title: String,
   description: String,
   price: Number,
-  code: String,
+  category: String,
   stock: Number,
-  category: String
+  status: Boolean
 });
 
 productSchema.plugin(mongoosePaginate);
 
-const Product = mongoose.model("products", productSchema);
-
-export default Product;
+export default mongoose.model("Product", productSchema);
