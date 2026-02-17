@@ -1,74 +1,34 @@
 import express from "express";
-import mongoose from "mongoose";
-import { engine } from "express-handlebars";
-import path from "path";
-import { fileURLToPath } from "url";
-
-/* =========================
-   IMPORTAR ROUTERS
-========================= */
-import cartsRouter from "./routes/carts.router.js";
+import handlebars from "express-handlebars";
 import productsRouter from "./routes/products.router.js";
+import cartsRouter from "./routes/carts.router.js"; // 👈 AGREGAR ESTA LÍNEA
 import viewsRouter from "./routes/views.router.js";
+import { connectDB } from "./config/db.js";
 
-/* =========================
-   CONFIG BASICA
-========================= */
 const app = express();
-const PORT = 8080;
+const PORT = 3000;
 
-/* Para usar __dirname con ES Modules */
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// DB
+connectDB();
 
-/* =========================
-   MIDDLEWARES
-========================= */
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("src/public"));
 
-/* Archivos estáticos */
-app.use(express.static(path.join(__dirname, "public")));
-
-/* =========================
-   HANDLEBARS
-========================= */
-app.engine(
-  "handlebars",
-  engine({
-    defaultLayout: "main",
-  })
-);
-
+// Handlebars
+app.engine("handlebars", handlebars.engine());
 app.set("view engine", "handlebars");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", "src/views");
 
-/* =========================
-   RUTAS
-========================= */
-
-/* VISTAS */
-app.use("/", viewsRouter);
-
-/* API */
+// Rutas API
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 
-/* =========================
-   CONEXION MONGO
-========================= */
-mongoose
-  .connect("mongodb://127.0.0.1:27017/mercado-modelo")
-  .then(() => {
-    console.log("✅ Conectado a MongoDB");
-  })
-  .catch((error) => {
-    console.error("❌ Error MongoDB:", error);
-  });
+// Rutas vistas
+app.use("/", viewsRouter);
 
-/* =========================
-   SERVER
-========================= */
+// Server
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor activo en http://localhost:${PORT}`);
+  console.log(`🚀 Server en http://localhost:${PORT}`);
 });

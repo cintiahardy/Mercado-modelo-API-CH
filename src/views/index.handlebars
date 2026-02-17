@@ -1,14 +1,14 @@
-<h1>🛒 Mercado Modelo</h1>
+<h1 class="title">Nuestros Productos</h1>
 
 <div class="products">
   {{#each products}}
-    <div class="product-card">
+    <div class="card">
       <h3>{{this.title}}</h3>
-      <p>Precio: ${{this.price}}</p>
-
-      <form action="/api/carts/{{../cartId}}/products/{{this._id}}" method="POST">
-        <button type="submit">Agregar al carrito</button>
-      </form>
+      <p class="price">$ {{this.price}}</p>
+      <p>Stock: {{this.stock}}</p>
+      <button onclick="addToCart('{{this._id}}', '{{this.title}}', {{this.price}})">
+        Agregar al carrito
+      </button>
     </div>
   {{/each}}
 </div>

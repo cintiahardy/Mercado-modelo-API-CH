@@ -1,36 +1,23 @@
 import { Router } from "express";
-import Product from "../models/product.model.js";
+import { Product } from "../models/product.model.js";
 
 const router = Router();
 
+/* GET todos */
 router.get("/", async (req, res) => {
-  const { limit = 10, page = 1, sort, query } = req.query;
+  const products = await Product.find();
+  res.json(products);
+});
 
-  const filter = query
-    ? { $or: [{ category: query }, { status: query === "true" }] }
-    : {};
+/* POST crear producto */
+router.get("/create-test", async (req, res) => {
+  await Product.insertMany([
+    { title: "Manzana", price: 100, stock: 50 },
+    { title: "Banana", price: 80, stock: 30 },
+    { title: "Naranja", price: 120, stock: 20 }
+  ]);
 
-  const options = {
-    page,
-    limit,
-    lean: true,
-    sort: sort ? { price: sort === "asc" ? 1 : -1 } : {}
-  };
-
-  const result = await Product.paginate(filter, options);
-
-  res.json({
-    status: "success",
-    payload: result.docs,
-    totalPages: result.totalPages,
-    prevPage: result.prevPage,
-    nextPage: result.nextPage,
-    page: result.page,
-    hasPrevPage: result.hasPrevPage,
-    hasNextPage: result.hasNextPage,
-    prevLink: result.hasPrevPage ? `/api/products?page=${result.prevPage}` : null,
-    nextLink: result.hasNextPage ? `/api/products?page=${result.nextPage}` : null
-  });
+  res.send("Productos de prueba creados");
 });
 
 export default router;
