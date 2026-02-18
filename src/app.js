@@ -1,7 +1,7 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import productsRouter from "./routes/products.router.js";
-import cartsRouter from "./routes/carts.router.js"; // 👈 AGREGAR ESTA LÍNEA
+import cartsRouter from "./routes/carts.router.js"; 
 import viewsRouter from "./routes/views.router.js";
 import { connectDB } from "./config/db.js";
 

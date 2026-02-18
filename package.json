@@ -11,7 +11,8 @@
   "dependencies": {
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
-    "mongoose": "^8.1.0"
+    "mongoose": "^8.1.0",
+    "mongoose-paginate-v2": "^1.9.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"

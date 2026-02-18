@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos - Mercado Modelo</title>
+</head>
+<body>
+
+    <h1>🛒 Productos</h1>
+
+    {{#each products}}
+        <div style="border:1px solid #ccc; padding:15px; margin:15px;">
+            <h2>{{this.title}}</h2>
+            <p>{{this.description}}</p>
+            <p><strong>Precio:</strong> ${{this.price}}</p>
+            <p><strong>Stock:</strong> {{this.stock}}</p>
+
+            <a href="/products/{{this._id}}">
+                <button>Ver detalle</button>
+            </a>
+        </div>
+    {{/each}}
+
+    <div style="margin-top:20px;">
+        {{#if hasPrevPage}}
+            <a href="/products?page={{prevPage}}">
+                <button>⬅ Página anterior</button>
+            </a>
+        {{/if}}
+
+        {{#if hasNextPage}}
+            <a href="/products?page={{nextPage}}">
+                <button>Página siguiente ➡</button>
+            </a>
+        {{/if}}
+    </div>
+
+</body>
+</html>

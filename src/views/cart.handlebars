@@ -1,5 +1,26 @@
-<h1 class="title">Carrito de Compras</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito</title>
+</head>
+<body>
 
-<div id="cart-container"></div>
+    <h1>🛍 Carrito</h1>
 
-<a href="/" class="back-btn">← Volver a productos</a>
+    {{#if cart.products.length}}
+
+        {{#each cart.products}}
+            <div style="border:1px solid #ccc; padding:15px; margin:15px;">
+                <h3>{{this.product.title}}</h3>
+                <p><strong>Precio:</strong> ${{this.product.price}}</p>
+                <p><strong>Cantidad:</strong> {{this.quantity}}</p>
+            </div>
+        {{/each}}
+
+    {{else}}
+        <p>El carrito está vacío.</p>
+    {{/if}}
+
+</body>
+</html>
